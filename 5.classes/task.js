@@ -64,26 +64,35 @@ class PrintEditionItem {
   // Задача 2
   
   class Library {
-    constructor(name) {
-      this.name = name;
-      this.books = [];
-    }
-    addBook(book) {
-      if (book.state >= 30) {
-        this.books.push(book);
-      }
-    }
-    findBookBy(type, value) {
-      return this.books.find(book => book[type] === value) || null;
-    }
-    giveBookByName(bookName) {
-      let currentBook = this.findBookBy(`name`, bookName);
-      if (currentBook) {
-        this.books.splice(currentBook);
-      }
-      return currentBook;
-    }  
+  constructor(name, books) {
+    this.name = name;
+    this.books = [];
   }
+  addBook(book) {
+    if (book.state > 30) {
+      this.books.push(book);
+    }
+  }
+  findBookBy(type, value) {
+    let result = this.books.find(
+      (searchedBook) => value === searchedBook[type]
+    );
+    if (result) {
+      return result;
+    } else {
+      return null;
+    }
+  }
+  giveBookByName(bookName) {
+    let index = this.books.findIndex((item) => item.name === bookName);
+    if (index !== -1) {
+      let deletedBook = this.books.splice(index, 1);
+      return deletedBook[0];
+    } else {
+      return null;
+    }
+  }
+}
   
   // Задача 3
   
